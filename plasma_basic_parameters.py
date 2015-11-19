@@ -51,17 +51,17 @@ def coulomb_logarithm(Te,ne,Z):
 
 
 
-def plasma_frequency_electron(ne):
-	return (ne * electron_charge**2 / electron_mass / eps0)
+def electron_plasma_frequency(ne):
+	return np.sqrt(ne * electron_charge**2 / electron_mass / eps0)
 
 	
 	
-def plasma_wavenumber_electron(ne):
+def electron_plasma_wavenumber(ne):
 	return plasma_frequency_electron(ne)/c
 
 
 	
-def plasma_wavelength_electron(ne):
+def electron_plasma_wavelength(ne):
 	return 2.*np.pi/plasma_wavenumber_electron(ne)
 
 
@@ -72,14 +72,6 @@ def electron_gyrofrequency(B):
 def ion_gyrofrequency(B,Z,mu):
 	B_cgs=B/1e4
 	return Z*electron_charge_csg*B_cgs /c_cgs /(mu*proton_mass_cgs)
-
-
-
-def electron_plasma_frequency(B):
-	return electron_gyrofrequency(B) /2./np.pi
-	
-def ion_plasma_frequency(B):
-	return ion_gyrofrequency(B,Z,A) /2./np.pi
 
 
 
