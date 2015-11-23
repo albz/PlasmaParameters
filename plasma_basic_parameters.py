@@ -39,14 +39,14 @@ c						= physical_const['speed of light in vacuum'][0]
 ### --- --- --- --- --- --- ###
 
 def coulomb_logarithm(Te,ne,Z):
-	TeeV = Te*boltzmann_constant_eVK
-	ne   = ne/1e6 #from m^-3 to cm^-3
+	TeeV  = Te*boltzmann_constant_eVK
+	ne_cc = ne/1e6 #from m^-3 to cm^-3
 	
 	if TeeV >= 10.*Z**2:
-		CL = 24.0 - 0.5*log(ne) + log(TeeV)
+		CL = 24.0 - 0.5*np.log(ne_cc) + np.log(TeeV)
 	else:
-		CL = 23.0 - 0.5*log(ne) - log(Z) + 3./2.*log(TeeV)
-		
+		CL = 23.0 - 0.5*np.log(ne_cc) - np.log(Z) + 3./2.*np.log(TeeV)
+	CL = max(CL,1.)
 	return CL
 
 
@@ -66,20 +66,20 @@ def electron_plasma_wavelength(ne):
 
 
 def electron_cycloton_frequency(B):
-	B_cgs=B/1e4
+	B_cgs=B*1e4
 	return electron_charge_csg*B_cgs /c_cgs /electron_mass_cgs
 
 def ion_cycloton_frequency(B,Z,mu):
-	B_cgs=B/1e4
+	B_cgs=B*1e4
 	return Z*electron_charge_csg*B_cgs /c_cgs /(mu*proton_mass_cgs)
 
 
 
 def electron_collision_rate(ne,Te,Z):
-	ne_cgs	= ne/1e6
+	ne_cc	= ne/1e6
 	TeeV 	= Te*boltzmann_constant_eVK
-	CL		= coulomb_logarithm(Te,ni,Z)
-	return 2.91e-6 * ne_cgs * CL * TeeV**1.5 
+	CL		= coulomb_logarithm(Te,ne,Z)
+	return 2.91e-6 * ne_cc * CL * TeeV**1.5 
 
 def electron_thermal_velocity(Te):
 	return np.sqrt(boltzmann_constant_ergK*Te/electron_mass_cgs)
@@ -98,7 +98,7 @@ def electron_collision_times(Te,ne,Z):
 def ion_collision_times(Ti,Te,Z,ne,mu):
 		TieV = Ti*boltzmann_constant_eVK
 		ne_cc = ne/1e6 #from m^-3 to cm^-3
-		return 2.09e7/coulomb_log_ei(Te,ne,Z) * TieV**1.5 * np.sqrt(mass_ratio) /Z**e/ne_cc
+		return 2.09e7/coulomb_logarithm(Te,ne,Z) * TieV**1.5 * np.sqrt(mu) /Z/ne_cc
 
 
 
@@ -116,3 +116,5 @@ def K_THermalConduction_Electron_Cross(Te,ne,Z,Bfield):
 		Teerg = Te*boltzmann_constant_ergK
 		ne_cc = ne/1e6 #from m^-3 to cm^-3
 		return 2.5 * ne_cc * Teerg / electron_mass_cgs / electron_cycloton_frequency(Bfield)
+
+
