@@ -62,7 +62,7 @@ def electron_plasma_wavenumber(ne):
 
 	
 def electron_plasma_wavelength(ne):
-	return 2.*np.pi/plasma_wavenumber_electron(ne)
+	return 2.*np.pi/electron_plasma_wavenumber(ne)
 
 
 def electron_cycloton_frequency(B):
@@ -116,5 +116,9 @@ def K_THermalConduction_Electron_Cross(Te,ne,Z,Bfield):
 		Teerg = Te*boltzmann_constant_ergK
 		ne_cc = ne/1e6 #from m^-3 to cm^-3
 		return 2.5 * ne_cc * Teerg / electron_mass_cgs / electron_cycloton_frequency(Bfield)
+
+
+# print ( '%8.5e' % (electron_cycloton_frequency(3e5/1e4)*electron_collision_times(400*1.16e4,1e21*1e6,1.)))
+# print ( '%8.5e' % (ion_cycloton_frequency(3e5/1e4,1.,2.5)*ion_collision_times(300*1.16e4,400*1.16e4,1.,1e21*1e6,2.5)))
 
 
