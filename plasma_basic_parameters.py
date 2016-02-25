@@ -23,14 +23,14 @@ from csg_basic_constants import *
 #--- physical constants ---#
 physical_const = codata.physical_constants #SI
 # most common
-electron_mass	 		= physical_const['electron mass'][0]
-electron_charge 		= physical_const['elementary charge'][0]
-proton_mass 			= physical_const['proton mass'][0]
+electron_mass	 	= physical_const['electron mass'][0]
+electron_charge 	= physical_const['elementary charge'][0]
+proton_mass 		= physical_const['proton mass'][0]
 boltzmann_constant_JK 	= physical_const['Boltzmann constant'][0]
 boltzmann_constant_eVK 	= physical_const['Boltzmann constant in eV/K'][0]
-eps0					= physical_const['electric constant'][0]
-mu0						= physical_const['mag. constant'][0]
-c						= physical_const['speed of light in vacuum'][0]
+eps0			= physical_const['electric constant'][0]
+mu0			= physical_const['magnetic constant'][0]
+c			= physical_const['speed of light in vacuum'][0]
 #--- *** ---#
 
 
