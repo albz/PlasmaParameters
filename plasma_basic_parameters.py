@@ -28,9 +28,12 @@ electron_charge 	= physical_const['elementary charge'][0]
 proton_mass 		= physical_const['proton mass'][0]
 boltzmann_constant_JK 	= physical_const['Boltzmann constant'][0]
 boltzmann_constant_eVK 	= physical_const['Boltzmann constant in eV/K'][0]
-eps0			= physical_const['electric constant'][0]
-mu0			= physical_const['magnetic constant'][0]
-c			= physical_const['speed of light in vacuum'][0]
+c                   = physical_const['speed of light in vacuum'][0]
+eps0                = physical_const['electric constant'][0]
+try:
+	mu0    = physical_const['mag. constant'][0]
+except:
+	mu0    = physical_const['magnetic constant'][0]
 #--- *** ---#
 
 
@@ -41,7 +44,7 @@ c			= physical_const['speed of light in vacuum'][0]
 def coulomb_logarithm(Te,ne,Z):
 	TeeV  = Te*boltzmann_constant_eVK
 	ne_cc = ne/1e6 #from m^-3 to cm^-3
-	
+
 	if TeeV >= 10.*Z**2:
 		CL = 24.0 - 0.5*np.log(ne_cc) + np.log(TeeV)
 	else:
@@ -54,13 +57,13 @@ def coulomb_logarithm(Te,ne,Z):
 def electron_plasma_frequency(ne):
 	return np.sqrt(ne * electron_charge**2 / electron_mass / eps0)
 
-	
-	
+
+
 def electron_plasma_wavenumber(ne):
 	return electron_plasma_frequency(ne)/c
 
 
-	
+
 def electron_plasma_wavelength(ne):
 	return 2.*np.pi/electron_plasma_wavenumber(ne)
 
@@ -79,14 +82,14 @@ def electron_collision_rate(ne,Te,Z):
 	ne_cc	= ne/1e6
 	TeeV 	= Te*boltzmann_constant_eVK
 	CL		= coulomb_logarithm(Te,ne,Z)
-	return 2.91e-6 * ne_cc * CL * TeeV**1.5 
+	return 2.91e-6 * ne_cc * CL * TeeV**1.5
 
 def electron_thermal_velocity(Te):
 	return np.sqrt(boltzmann_constant_ergK*Te/electron_mass_cgs)
 
 def ion_thermal_velocity(Ti,mu):
 	return np.sqrt(boltzmann_constant_ergK*Ti/mu/proton_mass_cgs)
-	
+
 
 
 
@@ -94,7 +97,7 @@ def electron_collision_times(Te,ne,Z):
 		TeeV = Te*boltzmann_constant_eVK
 		ne_cc = ne/1e6 #from m^-3 to cm^-3
 		return 3.5e5/coulomb_logarithm(Te,ne,Z) * TeeV**1.5 /Z/ne_cc
-		
+
 def ion_collision_times(Ti,Te,Z,ne,mu):
 		TieV = Ti*boltzmann_constant_eVK
 		ne_cc = ne/1e6 #from m^-3 to cm^-3
@@ -120,5 +123,3 @@ def K_THermalConduction_Electron_Cross(Te,ne,Z,Bfield):
 
 # print ( '%8.5e' % (electron_cycloton_frequency(3e5/1e4)*electron_collision_times(400*1.16e4,1e21*1e6,1.)))
 # print ( '%8.5e' % (ion_cycloton_frequency(3e5/1e4,1.,2.5)*ion_collision_times(300*1.16e4,400*1.16e4,1.,1e21*1e6,2.5)))
-
-
