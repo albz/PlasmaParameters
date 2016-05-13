@@ -2,7 +2,7 @@
 ######################################################################
 # Name:         PlasmaParameters
 # Author:       A. Marocchino
-# Date:			2015-11-17
+# Date:         2015-11-17
 # Purpose:      series of python function to calculate basic plasma paramteres
 # Source:       python
 #####################################################################
@@ -38,7 +38,7 @@ except:
 
 
 ### --- --- --- --- --- --- ###
-#  All input are in SI Units  #
+# All inputs are in SI Units  #
 ### --- --- --- --- --- --- ###
 
 def coulomb_logarithm(Te,ne,Z):
