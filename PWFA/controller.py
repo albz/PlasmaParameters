@@ -19,8 +19,8 @@ from scipy.constants import codata
 #from mpl_toolkits.mplot3d import Axes3D
 # - #
 home_path = os.path.expanduser('~')
-sys.path.append(os.path.join(home_path,'Codes/PlasmaParameters'))
-sys.path.append(os.path.join(home_path,'Codes/PlasmaWakeField_utilities'))
+sys.path.append(os.path.join(home_path,'Codes/Plasma_PyCalculator/formulary'))
+sys.path.append(os.path.join(home_path,'Codes/Plasma_PyCalculatorPWFA'))
 from plasma_basic_parameters import *
 from PWFA_calculator import *
 # --- #

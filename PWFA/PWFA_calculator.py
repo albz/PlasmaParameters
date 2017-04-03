@@ -13,7 +13,7 @@ from scipy import *
 import numpy as np
 from scipy.constants import codata
 # - #
-sys.path.append(os.path.join(os.path.expanduser('~'),'Codes/PlasmaParameters'))
+sys.path.append(os.path.join(home_path,'Codes/Plasma_PyCalculator/formulary'))
 from plasma_basic_parameters import *
 # --- #
 

@@ -15,7 +15,7 @@ import pylab as pyl
 from scipy.constants import codata
 # - #
 home_path = os.path.expanduser('~')
-sys.path.append(os.path.join(home_path,'/Codes/PlasmaParameters'))
+sys.path.append(os.path.join(home_path,'Codes/Plasma_PyCalculator/formulary'))
 from csg_basic_constants import *
 ### --- ###
 
