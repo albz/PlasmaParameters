@@ -13,6 +13,7 @@ from scipy import *
 import numpy as np
 from scipy.constants import codata
 # - #
+home_path = os.path.expanduser('~')
 sys.path.append(os.path.join(home_path,'Codes/Plasma_PyCalculator/formulary'))
 from plasma_basic_parameters import *
 # --- #
@@ -20,10 +21,7 @@ from plasma_basic_parameters import *
 ### --- constants --- ###
 physical_const = codata.physical_constants #SI
 eps0   = physical_const['electric constant'][0]
-try:
-	mu0    = physical_const['mag. constant'][0]
-except:
-	mu0    = physical_const['magnetic constant'][0]
+mu0    = physical_const['mag. constant'][0]
 c      = physical_const['speed of light in vacuum'][0]
 me     = physical_const['electron mass'][0]
 qe     = physical_const['elementary charge'][0]
