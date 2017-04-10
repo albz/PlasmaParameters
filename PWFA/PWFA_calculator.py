@@ -84,32 +84,23 @@ def matching_with_ramp(sx,Lramp,Lvacuum,n0,gamma,emittance):
 
 
 ### ---  matching conditions --- ###
-def matching_condition(n0,emittance,gamma):
+def matching_condition_transverse(n0,emittance,gamma):
 	k0 = electron_plasma_wavenumber(n0)
 	sigma_matching = np.sqrt(np.sqrt(2./gamma)) * np.sqrt(emittance/k0)
 	return sigma_matching
-def generalised_matching_condition(alpha,n0,emittance,gamma):
-	k0    = electron_plasma_wavenumber(n0)
-	if( alpha > 1.):
-		sigma_matching = np.sqrt(np.sqrt(2./gamma)) * np.sqrt(emittance/k0)
-	else:
-		k0 *= alpha
-		sigma_matching = np.sqrt(np.sqrt(2./gamma)) * np.sqrt(emittance/k0)
-	return sigma_matching
+# def generalised_matching_condition(alpha,n0,emittance,gamma):
+# 	k0    = electron_plasma_wavenumber(n0)
+# 	if( alpha > 1.):
+# 		sigma_matching = np.sqrt(np.sqrt(2./gamma)) * np.sqrt(emittance/k0)
+# 	else:
+# 		k0 *= alpha
+# 		sigma_matching = np.sqrt(np.sqrt(2./gamma)) * np.sqrt(emittance/k0)
+# 	return sigma_matching
 def matching_condition_longitudinal(n0):
 	k0       = electron_plasma_wavenumber(n0)
 	lambda_p = electron_plasma_wavelength(n0)
 	sz = lambda_p/6.
 	return sz
-def matching_condition_transverse(charge,sz,n0,emittance,gamma):
-	k0    = electron_plasma_wavenumber(n0)
-	stored_charge=0.
-	for alpha in arange(0.01,1000.,0.001):
-		sx = generalised_matching_condition(alpha,n0,emittance,gamma)
-		calculated_charge = Q_from_alpha(alpha,n0,sx,sx,sz)
-		if( calculated_charge > charge ):
-			return alpha,sx
-
 
 ### --- betatron oscillation wavelength --- ###
 def betatron_wavelength(n0,gamma):
@@ -118,9 +109,13 @@ def betatron_wavelength(n0,gamma):
 	return lbetatron
 
 ### --- calculate total charge from alpha --- #
-def Q_from_alpha(alpha,n0,sx,sy,sz):
+def Q_from_alpha_bigaussian(alpha,n0,sx,sy,sz):
 	volume	= (2.*np.pi)**(3./2.) * (sx*sy*sz)
 	charge	= (alpha*n0) * volume * qe #total charge in [C]
+	return charge
+def Q_from_alpha_trapezoidalZ_gaussianR(alpha_left,alpha_right,n0,sx,sy,length_z):
+	volume	= 2.*np.pi * (sx*sy) * length_z
+	charge	= (alpha_left+alpha_right)/2.*n0 * volume * qe #total charge in [C]
 	return charge
 
 ### --- determine alpha from total charge --- #
