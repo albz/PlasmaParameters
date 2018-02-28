@@ -9,7 +9,6 @@
 
 ### loading shell commands
 import os, os.path, glob, sys, shutil, time, datetime, scipy, pylab
-from scipy import *
 import numpy as np
 from scipy.constants import codata
 # - #
