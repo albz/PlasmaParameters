@@ -75,6 +75,12 @@ def electron_collision_rate(ne,Te,Z):
 	CL		= coulomb_logarithm(Te,ne,Z)
 	return 2.91e-6 * ne_cc * CL * TeeV**1.5
 
+def electron_mean_free_path(ne,Te,Z):
+	ne_cc	= ne/1e6
+	Teerg 	= Te*boltzmann_constant_ergK
+	CL		= coulomb_logarithm(Te,ne,Z)
+	return Teerg**2 / (4.*np.pi*electron_charge_csg**4 * ne_cc * Z*CL) * 1e-2
+
 def electron_thermal_velocity(Te):
 	return np.sqrt(boltzmann_constant_ergK*Te/electron_mass_cgs)
 
